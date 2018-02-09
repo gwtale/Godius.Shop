@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-Godius.Shop-1B214769-14DB-4C58-B87C-B90EEFC32BD4</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20180209075429_ChangeImageTypeOfGoods.cs" />
+    <Compile Remove="Data\Migrations\20180209075429_ChangeImageTypeOfGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180209075654_ChangeImageTypeOfGoods.cs" />
+    <Compile Remove="Data\Migrations\20180209075654_ChangeImageTypeOfGoods.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />

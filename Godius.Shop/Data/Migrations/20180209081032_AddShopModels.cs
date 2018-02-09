@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Godius.Shop.Data.Migrations
 {
-    public partial class AddShopInfo : Migration
+    public partial class AddShopModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,7 +25,7 @@ namespace Godius.Shop.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Image = table.Column<string>(nullable: true),
+                    Image = table.Column<byte[]>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

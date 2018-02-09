@@ -77,7 +77,7 @@ namespace Godius.Shop.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Image");
+                    b.Property<byte[]>("Image");
 
                     b.Property<string>("Name");
 

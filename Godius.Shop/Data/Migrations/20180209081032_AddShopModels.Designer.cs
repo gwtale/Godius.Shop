@@ -12,8 +12,8 @@ using System;
 namespace Godius.Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180209070043_AddShopInfo")]
-    partial class AddShopInfo
+    [Migration("20180209081032_AddShopModels")]
+    partial class AddShopModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,7 +78,7 @@ namespace Godius.Shop.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Image");
+                    b.Property<byte[]>("Image");
 
                     b.Property<string>("Name");
 
