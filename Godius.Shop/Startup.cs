@@ -29,12 +29,24 @@ namespace Godius.Shop
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+			// set Low security level password
+			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+			{
+				options.Password.RequireDigit = false;
+				options.Password.RequiredLength = 4;
+				options.Password.RequiredUniqueChars = 0;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireUppercase = false;
+				options.Password.RequireNonAlphanumeric = false;
+				options.SignIn.RequireConfirmedEmail = false;
+				options.SignIn.RequireConfirmedPhoneNumber = false;
+				options.User.RequireUniqueEmail = true;
+			})
+			.AddEntityFrameworkStores<ApplicationDbContext>()
+			.AddDefaultTokenProviders();
 
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+			// Add application services.
+			services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
         }
