@@ -10,6 +10,10 @@ namespace Godius.Shop.Models.GoodsViewModels
     public class CreateGoodsViewModel
 	{
 		[Required]
+		[Display(Name = "카테고리")]
+		public string CategoryId { get; set; }
+
+		[Required]
 		[Display(Name = "코드")]
 		public string SerialCode { get; set; }
 
@@ -17,9 +21,8 @@ namespace Godius.Shop.Models.GoodsViewModels
 		[Display(Name = "이름")]
 		public string Name { get; set; }
 
-		[Required]
+		[Required, DataType(DataType.Currency)]
 		[Display(Name = "금액")]
-		[DisplayFormat(DataFormatString = "{0:C0}")]
 		public decimal Price { get; set; }
 
 		[Required]

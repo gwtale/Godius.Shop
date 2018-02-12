@@ -1,0 +1,20 @@
+﻿@{
+	ViewData["Title"] = "상품 관리";
+	var categories = ViewBag.Categories as IEnumerable<GoodsCategory>;
+	var goods = ViewBag.Goods as IEnumerable<Goods>;
+}
+
+<div class="row">
+	<div class="col-md-6">
+		<h2>상품 카테고리</h2>
+		<p>
+			@Html.Partial("_GoodsCategoryListPartial", categories)
+		</p>
+	</div>
+	<div class="col-md-6">
+		<h2>상품</h2>
+		<p>
+			@Html.Partial("_GoodsListPartial", goods)
+		</p>
+	</div>
+</div>

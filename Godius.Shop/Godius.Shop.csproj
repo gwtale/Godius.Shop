@@ -14,6 +14,22 @@
     <Compile Remove="Data\Migrations\20180209081032_AddShopModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20180212032815_AddShopModels2.cs" />
     <Compile Remove="Data\Migrations\20180212032815_AddShopModels2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212032952_AddShopModels.cs" />
+    <Compile Remove="Data\Migrations\20180212032952_AddShopModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212055154_AddPriceOfGoods.cs" />
+    <Compile Remove="Data\Migrations\20180212055154_AddPriceOfGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212070913_AddDescriptionOfGoods.cs" />
+    <Compile Remove="Data\Migrations\20180212070913_AddDescriptionOfGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212071149_UpdatePriceTypeOfGoods.cs" />
+    <Compile Remove="Data\Migrations\20180212071149_UpdatePriceTypeOfGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212073009_AddGoods.cs" />
+    <Compile Remove="Data\Migrations\20180212073009_AddGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212074656_AddGoods2.cs" />
+    <Compile Remove="Data\Migrations\20180212074656_AddGoods2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212075025_AddGoods.cs" />
+    <Compile Remove="Data\Migrations\20180212075025_AddGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212075237_AddGoods.cs" />
+    <Compile Remove="Data\Migrations\20180212075237_AddGoods.Designer.cs" />
   </ItemGroup>
 
 

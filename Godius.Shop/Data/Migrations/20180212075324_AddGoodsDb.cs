@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Godius.Shop.Data.Migrations
 {
-    public partial class AddShopModels : Migration
+    public partial class AddGoodsDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,17 +21,39 @@ namespace Godius.Shop.Data.Migrations
                 table: "AspNetRoles");
 
             migrationBuilder.CreateTable(
-                name: "Goods",
+                name: "GoodsCategories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Image = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     SerialCode = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_GoodsCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Goods",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CategoryId = table.Column<Guid>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
+                    SerialCode = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Goods", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Goods_GoodsCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "GoodsCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +121,11 @@ namespace Godius.Shop.Data.Migrations
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Goods_CategoryId",
+                table: "Goods",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Items_ByPurchaseId",
                 table: "Items",
                 column: "ByPurchaseId");
@@ -136,6 +163,9 @@ namespace Godius.Shop.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Goods");
+
+            migrationBuilder.DropTable(
+                name: "GoodsCategories");
 
             migrationBuilder.DropIndex(
                 name: "UserNameIndex",

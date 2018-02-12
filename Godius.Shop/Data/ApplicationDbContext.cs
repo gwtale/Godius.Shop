@@ -12,6 +12,8 @@ namespace Godius.Shop.Data
     {
 		public DbSet<Item> Items { get; set; }
 
+		public DbSet<GoodsCategory> GoodsCategories { get; set; }
+
 		public DbSet<Goods> Goods { get; set; }
 
 		public DbSet<Purchase> PurchaseHistory { get; set; }

@@ -77,6 +77,8 @@ namespace Godius.Shop.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("CategoryId");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Image");
@@ -89,7 +91,23 @@ namespace Godius.Shop.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Goods");
+                });
+
+            modelBuilder.Entity("Godius.Shop.Models.GoodsCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("SerialCode");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GoodsCategories");
                 });
 
             modelBuilder.Entity("Godius.Shop.Models.Item", b =>
@@ -244,6 +262,13 @@ namespace Godius.Shop.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Godius.Shop.Models.Goods", b =>
+                {
+                    b.HasOne("Godius.Shop.Models.GoodsCategory", "Category")
+                        .WithMany("Goods")
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("Godius.Shop.Models.Item", b =>
