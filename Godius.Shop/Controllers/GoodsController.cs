@@ -30,7 +30,7 @@ namespace Godius.Shop.Controllers
         // GET: Goods
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Goods.ToListAsync());
+            return View(await _context.Goods.OrderBy(G => G.SerialCode).ToListAsync());
         }
 
         // GET: Goods/Details/5

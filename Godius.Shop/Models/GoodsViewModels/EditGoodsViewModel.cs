@@ -13,17 +13,22 @@ namespace Godius.Shop.Models.GoodsViewModels
 		public Guid Id { get; set; }
 
 		[Required]
+		[Display(Name = "코드")]
 		public string SerialCode { get; set; }
 
 		[Required]
+		[Display(Name = "이름")]
 		public string Name { get; set; }
 
 		[Required]
-		public double Price { get; set; }
+		[Display(Name = "금액")]
+		[DisplayFormat(DataFormatString = "{0:C0}")]
+		public decimal Price { get; set; }
 		
 		public IFormFile Image { get; set; }
 
 		[Required]
+		[Display(Name = "이미지")]
 		public string ImagePath { get; set; }
 	}
 }
