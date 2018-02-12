@@ -10,6 +10,10 @@
     <Compile Remove="Data\Migrations\20180209075429_ChangeImageTypeOfGoods.Designer.cs" />
     <Compile Remove="Data\Migrations\20180209075654_ChangeImageTypeOfGoods.cs" />
     <Compile Remove="Data\Migrations\20180209075654_ChangeImageTypeOfGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180209081032_AddShopModels.cs" />
+    <Compile Remove="Data\Migrations\20180209081032_AddShopModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212032815_AddShopModels2.cs" />
+    <Compile Remove="Data\Migrations\20180212032815_AddShopModels2.Designer.cs" />
   </ItemGroup>
 
 

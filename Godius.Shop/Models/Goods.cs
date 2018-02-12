@@ -9,8 +9,12 @@ namespace Godius.Shop.Models
     {
 		public Guid Id { get; set; }
 
+		public string SerialCode { get; set; }
+
 		public string Name { get; set; }
 
-		public byte[] Image { get; set; }
+		public double Price { get; set; }
+
+		public string Image { get; set; }
 	}
 }

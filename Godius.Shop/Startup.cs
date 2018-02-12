@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Godius.Shop.Data;
 using Godius.Shop.Models;
 using Godius.Shop.Services;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Godius.Shop
 {
@@ -26,9 +29,11 @@ namespace Godius.Shop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+			services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+			//services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+			
 			// set Low security level password
 			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 			{
@@ -48,7 +53,10 @@ namespace Godius.Shop
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
+			// Configurations
+			services.Configure<AppOptions>(Configuration);
+
+			services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,9 +73,15 @@ namespace Godius.Shop
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+			app.UseStaticFiles();
 
-            app.UseAuthentication();
+			//app.UseStaticFiles(new StaticFileOptions
+			//{
+			//	FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Uploads")),
+			//	RequestPath = new PathString("/Uploads")
+			//});
+
+			app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
@@ -75,6 +89,6 @@ namespace Godius.Shop
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-        }
-    }
+		}
+	}
 }

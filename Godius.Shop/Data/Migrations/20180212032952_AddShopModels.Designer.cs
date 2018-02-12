@@ -12,7 +12,7 @@ using System;
 namespace Godius.Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180209081032_AddShopModels")]
+    [Migration("20180212032952_AddShopModels")]
     partial class AddShopModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,9 +78,11 @@ namespace Godius.Shop.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<byte[]>("Image");
+                    b.Property<string>("Image");
 
                     b.Property<string>("Name");
+
+                    b.Property<string>("SerialCode");
 
                     b.HasKey("Id");
 
