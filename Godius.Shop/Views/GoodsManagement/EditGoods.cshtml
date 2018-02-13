@@ -1,16 +1,15 @@
 ﻿@model Godius.Shop.Models.GoodsViewModels.EditGoodsViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "상품 수정";
 }
 
-<h2>Edit</h2>
+<h2>상품 수정</h2>
 
-<h4>Goods</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-		<form asp-action="Edit" enctype="multipart/form-data">
+		<form asp-action="EditGoods" enctype="multipart/form-data">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<input type="hidden" asp-for="Id" />
 			<input type="hidden" asp-for="ImagePath" />
@@ -39,14 +38,14 @@
 				<span asp-validation-for="Image" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<input type="submit" value="Save" class="btn btn-default" />
+				<input type="submit" value="수정" class="btn btn-default" />
 			</div>
 		</form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">뒤로</a>
 </div>
 
 @section Scripts {

@@ -1,14 +1,13 @@
 ﻿@model Godius.Shop.Models.Goods
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "상품 상세정보";
 }
 
-<h2>Details</h2>
+<h2>상품 상세정보</h2>
 
 <div>
-    <h4>Goods</h4>
-    <hr />
+	<hr />
 	<dl class="dl-horizontal">
 		<dt>
 			@Html.DisplayNameFor(model => model.SerialCode)
@@ -34,12 +33,13 @@
 		<dd>
 			@if (!String.IsNullOrEmpty(Model.Image))
 			{
-			<img src="@Model.Image" class="img-thumbnail" alt="@Model.Image" />
+				<img src="@Model.Image" class="img-thumbnail" alt="@Model.Image" />
 			}
 		</dd>
 	</dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="EditGoods" asp-route-id="@Model.Id">수정</a> |
+	<a asp-action="DeleteGoods" asp-route-id="@Model.Id">삭제</a> |
+	<a asp-action="Index">뒤로</a>
 </div>
