@@ -198,9 +198,17 @@ namespace Godius.Shop.Controllers
 					return NotFound();
 				}
 
-				var goods = new Goods { Id = Guid.NewGuid(), SerialCode = model.SerialCode, Name = model.Name, Price = model.Price, Category = goodsCategory };
+				var goods = new Goods
+				{
+					Id = Guid.NewGuid(),
+					SerialCode = model.SerialCode,
+					Name = model.Name,
+					Price = model.Price,
+					Description = model.Description?.Replace(Environment.NewLine, "<br/>"),
+					Category = goodsCategory
+				};
 
-				if (model.Image.Length > 0)
+				if (model.Image?.Length > 0)
 				{
 					var dirPath = Path.Combine(_hostingEnvironment.WebRootPath, _appOptions.GoodsImagePath);
 					var dirInfo = new DirectoryInfo(dirPath);
@@ -257,7 +265,28 @@ namespace Godius.Shop.Controllers
 			{
 				return NotFound();
 			}
-			return View(new EditGoodsViewModel { Id = goods.Id, SerialCode = goods.SerialCode, Name = goods.Name, Price = goods.Price, ImagePath = goods.Image });
+
+			var categorySelectListItems = from category in _context.GoodsCategories
+										  orderby category.SerialCode
+										  let selected = category.Id == goods.CategoryId
+										  select new SelectListItem
+										  {
+											  Text = $"{category.Name}({category.SerialCode})",
+											  Value = category.Id.ToString(),
+											  Selected = selected
+										  };
+
+			ViewBag.Categories = await categorySelectListItems.ToListAsync();
+
+			return View(new EditGoodsViewModel
+			{
+				Id = goods.Id,
+				SerialCode = goods.SerialCode,
+				Name = goods.Name,
+				Price = goods.Price,
+				Description = goods.Description?.Replace("<br/>", Environment.NewLine),
+				ImagePath = goods.Image
+			});
 		}
 
 		// POST: GoodsManagement/EditGoods/5
@@ -307,6 +336,8 @@ namespace Godius.Shop.Controllers
 					goods.SerialCode = model.SerialCode;
 					goods.Name = model.Name;
 					goods.Price = model.Price;
+					goods.Description = model.Description?.Replace(Environment.NewLine, "<br/>");
+					goods.CategoryId = Guid.Parse(model.CategoryId);
 
 					_context.Update(goods);
 					await _context.SaveChangesAsync();

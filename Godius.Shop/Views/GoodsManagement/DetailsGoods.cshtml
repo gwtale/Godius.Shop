@@ -28,13 +28,19 @@
 			@Html.DisplayFor(model => model.Price)
 		</dd>
 		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+		<dd>
+			@Html.Raw(Model.Description)
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.Image)
 		</dt>
 		<dd>
 			@if (!String.IsNullOrEmpty(Model.Image))
-			{
-				<img src="@Model.Image" class="img-thumbnail" alt="@Model.Image" />
-			}
+		{
+			<img src="@Model.Image" class="img-thumbnail" alt="@Model.Image" />
+	}
 		</dd>
 	</dl>
 </div>

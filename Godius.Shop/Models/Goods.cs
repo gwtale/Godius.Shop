@@ -20,6 +20,7 @@ namespace Godius.Shop.Models
 		[Display(Name = "금액")]
 		public decimal Price { get; set; }
 
+		[DataType(DataType.MultilineText)]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
 
@@ -28,5 +29,7 @@ namespace Godius.Shop.Models
 
 		[Display(Name = "카테고리")]
 		public GoodsCategory Category { get; set; }
+
+		public Guid CategoryId { get; set; }
 	}
 }

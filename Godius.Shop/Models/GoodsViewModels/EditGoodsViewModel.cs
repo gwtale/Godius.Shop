@@ -13,6 +13,10 @@ namespace Godius.Shop.Models.GoodsViewModels
 		public Guid Id { get; set; }
 
 		[Required]
+		[Display(Name = "카테고리")]
+		public string CategoryId { get; set; }
+
+		[Required]
 		[Display(Name = "코드")]
 		public string SerialCode { get; set; }
 
@@ -23,10 +27,13 @@ namespace Godius.Shop.Models.GoodsViewModels
 		[Required, DataType(DataType.Currency)]
 		[Display(Name = "금액")]
 		public decimal Price { get; set; }
-		
-		public IFormFile Image { get; set; }
 
-		[Required]
+		[DataType(DataType.MultilineText)]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
+
+		public IFormFile Image { get; set; }
+		
 		[Display(Name = "이미지")]
 		public string ImagePath { get; set; }
 	}

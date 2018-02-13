@@ -25,7 +25,10 @@ namespace Godius.Shop.Models.GoodsViewModels
 		[Display(Name = "금액")]
 		public decimal Price { get; set; }
 
-		[Required]
+		[DataType(DataType.MultilineText)]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
+		
 		[Display(Name = "이미지")]
 		public IFormFile Image { get; set; }
 	}
