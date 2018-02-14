@@ -1,0 +1,91 @@
+﻿@model Godius.Shop.Models.Item
+
+@{
+	ViewData["Title"] = "아이템 삭제";
+}
+
+<h3>아이템 삭제</h3>
+
+<h4>이 아이템을 삭제하시겠습니까?</h4>
+<div>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Category)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Category)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+		<dd>
+			@Html.Raw(Model.Description.Replace(Environment.NewLine, "<br />"))
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Weight)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Weight)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.WC)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.WC)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.AC)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.AC)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.HC)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.HC)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.DC)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.DC)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Durability)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Durability)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Image)
+		</dt>
+		<dd>
+			@if (!String.IsNullOrEmpty(Model.Image))
+		{
+			<img src="@Model.Image" class="img-thumbnail" alt="@Model.Image" />
+	}
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Generation)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Generation)
+		</dd>
+	</dl>
+
+	<form asp-action="Delete">
+		<input type="hidden" asp-for="Id" />
+		<input type="submit" value="삭제" class="btn btn-default" />
+	</form>
+	<div>
+		<a asp-action="Index">뒤로</a>
+	</div>
+</div>

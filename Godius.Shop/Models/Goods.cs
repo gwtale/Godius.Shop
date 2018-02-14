@@ -29,7 +29,10 @@ namespace Godius.Shop.Models
 
 		[Display(Name = "카테고리")]
 		public GoodsCategory Category { get; set; }
-
 		public Guid CategoryId { get; set; }
+
+		public virtual List<Purchase> Purchases { get; set; }
+
+		public virtual List<ItemGoods> ItemsGoods { get; set; }
 	}
 }

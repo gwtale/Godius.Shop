@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Godius.Shop.Models
+namespace Godius.Shop.Models.ItemViewModels
 {
-    public class Item
+    public class CreateItemViewModel
     {
-		public Guid Id { get; set; }
-
+		[Required]
 		[Display(Name = "카테고리")]
-		public ItemCategories Category { get; set;}
+		public ItemCategories Category { get; set; }
 
+		[Required]
 		[Display(Name = "이름")]
 		public string Name { get; set; }
 
@@ -23,36 +24,25 @@ namespace Godius.Shop.Models
 		public int? Weight { get; set; }
 
 		[Display(Name = "WC")]
-		public int? WC { get; set; }
+		public int? WC { get; set; } = 0;
 
 		[Display(Name = "AC")]
-		public int? AC { get; set; }
+		public int? AC { get; set; } = 0;
 
 		[Display(Name = "HC")]
-		public int? HC { get; set; }
+		public int? HC { get; set; } = 0;
 
 		[Display(Name = "DC")]
-		public int? DC { get; set; }
+		public int? DC { get; set; } = 0;
 
 		[Display(Name = "내구력")]
-		public int? Durability { get; set; }
+		public int? Durability { get; set; } = 0;
 
 		[Display(Name = "이미지")]
-		public string Image { get; set; }
+		public IFormFile Image { get; set; }
 
+		[Required]
 		[Display(Name = "세대")]
 		public double Generation { get; set; } = 1;
-	}
-
-	public enum ItemCategories
-	{
-		Normal,
-		Special,
-		Event,
-		Weapon,
-		Clothe,
-		Armor,
-		Shoe,
-		Shield
 	}
 }

@@ -1,0 +1,38 @@
+﻿@model Godius.Shop.Models.Goods
+
+@{
+    ViewData["Title"] = "Buy";
+}
+
+<h3>@Html.Raw($"{Model.Name} 구매")</h3>
+
+<div>
+	<hr />
+	<table class="table table-bordered">
+		<thead>
+			<tr class="goods-header">
+				<th colspan="2">@Html.Raw($"{Model.SerialCode} {Model.Name}")</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					@if (!String.IsNullOrEmpty(Model.Image))
+					{
+						<img src="@Model.Image" alt="@Model.Image" class="img-thumbnail" />
+					}
+				</td>
+				<td>
+					@Html.Raw(Model.Description.Replace(Environment.NewLine, "<br />"))
+				</td>
+				@*<td>
+					<a asp-controller="Shop" asp-action="Buy" asp-route-id="@Model.Id" class="btn btn-primary">구매</a>
+				</td>*@
+			</tr>
+		</tbody>
+	</table>
+	<hr />
+</div>
+<div>
+    <a asp-action="Index">뒤로</a>
+</div>

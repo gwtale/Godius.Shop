@@ -26,8 +26,25 @@ namespace Godius.Shop.Controllers
 
 		public async Task<IActionResult> Index()
         {
-			var goods = await _context.Goods.ToListAsync();
+			var goods = await _context.Goods.OrderBy(G => G.SerialCode).ToListAsync();
             return View(goods);
         }
-    }
+		
+		// GET: GoodsManagement/DetailsCategory/5
+		public async Task<IActionResult> Buy(Guid? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var goods = await _context.Goods.SingleOrDefaultAsync(m => m.Id == id);
+			if (goods == null)
+			{
+				return NotFound();
+			}
+
+			return View(goods);
+		}
+	}
 }

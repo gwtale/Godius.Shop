@@ -13,6 +13,7 @@ namespace Godius.Shop.Models
 
 		}
 
+		public string ItemImagePath => "item/images/";
 		public string GoodsImagePath => "goods/images/";
 	}
 }

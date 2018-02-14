@@ -12,9 +12,10 @@ using System;
 namespace Godius.Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180214023053_AddItemGeneration")]
+    partial class AddItemGeneration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,27 +116,27 @@ namespace Godius.Shop.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AC");
+                    b.Property<int>("AC");
 
                     b.Property<int>("Category");
 
-                    b.Property<int?>("DC");
+                    b.Property<int>("DC");
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("Durability");
+                    b.Property<int>("Durability");
 
-                    b.Property<double>("Generation");
+                    b.Property<int>("Generation");
 
-                    b.Property<int?>("HC");
+                    b.Property<int>("HC");
 
                     b.Property<string>("Image");
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("WC");
+                    b.Property<int>("WC");
 
-                    b.Property<int?>("Weight");
+                    b.Property<int>("Weight");
 
                     b.HasKey("Id");
 

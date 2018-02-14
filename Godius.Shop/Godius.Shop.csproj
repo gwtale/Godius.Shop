@@ -30,6 +30,12 @@
     <Compile Remove="Data\Migrations\20180212075025_AddGoods.Designer.cs" />
     <Compile Remove="Data\Migrations\20180212075237_AddGoods.cs" />
     <Compile Remove="Data\Migrations\20180212075237_AddGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180214015522_AddItemGoods.cs" />
+    <Compile Remove="Data\Migrations\20180214015522_AddItemGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180214015852_AddItemGoodsAndPurchases.cs" />
+    <Compile Remove="Data\Migrations\20180214015852_AddItemGoodsAndPurchases.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180214022546_AddItemDescription.cs" />
+    <Compile Remove="Data\Migrations\20180214022546_AddItemDescription.Designer.cs" />
   </ItemGroup>
 
 

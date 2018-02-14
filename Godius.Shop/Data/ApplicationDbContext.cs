@@ -16,6 +16,10 @@ namespace Godius.Shop.Data
 
 		public DbSet<Goods> Goods { get; set; }
 
+		public DbSet<ItemGoods> ItemGoods { get; set; }
+
+		public DbSet<ResultItemGoods> ResultItemGoods { get; set; }
+
 		public DbSet<Purchase> PurchaseHistory { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

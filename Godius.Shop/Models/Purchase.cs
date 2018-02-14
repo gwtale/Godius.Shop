@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace Godius.Shop.Models
 {
-    public class Purchase
-    {
+	public class Purchase
+	{
 		public Guid Id { get; set; }
 
-		public Goods Item { get; set; }
+		public ResultItemGoods ResultItemGoods { get; set; }
+		public Guid ResultItemId { get; set; }
 
 		public ApplicationUser Purchaser { get; set; }
 
