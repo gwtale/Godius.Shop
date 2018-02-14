@@ -1,0 +1,46 @@
+﻿@model Godius.Shop.Models.ItemGoods
+
+@{
+	ViewData["Title"] = "Delete";
+}
+
+<h3>아이템 상품 삭제</h3>
+
+<h4>이 아이템 상품을 삭제하시겠습니까?</h4>
+<div>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Probability)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Probability)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Goods)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Goods.Name)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Item)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Item.Name)
+		</dd>
+	</dl>
+
+	<form asp-action="DeleteItemGoods">
+		<input type="hidden" asp-for="Id" />
+		<input type="submit" value="삭제" class="btn btn-default" />
+	</form>
+	<div>
+		<a asp-action="EditGoods" asp-route-id="@Model.GoodsId">뒤로</a>
+	</div>
+</div>

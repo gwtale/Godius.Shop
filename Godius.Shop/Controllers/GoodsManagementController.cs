@@ -260,7 +260,7 @@ namespace Godius.Shop.Controllers
 				return NotFound();
 			}
 
-			var goods = await _context.Goods.SingleOrDefaultAsync(m => m.Id == id);
+			var goods = await _context.Goods.Include(G => G.ItemsGoods).SingleOrDefaultAsync(m => m.Id == id);
 			if (goods == null)
 			{
 				return NotFound();
@@ -278,7 +278,7 @@ namespace Godius.Shop.Controllers
 
 			ViewBag.Categories = await categorySelectListItems.ToListAsync();
 
-			return View(new EditGoodsViewModel
+			var viewModel = new EditGoodsViewModel
 			{
 				Id = goods.Id,
 				SerialCode = goods.SerialCode,
@@ -286,7 +286,15 @@ namespace Godius.Shop.Controllers
 				Price = goods.Price,
 				Description = goods.Description?.Replace("<br/>", Environment.NewLine),
 				ImagePath = goods.Image
-			});
+			};
+			
+			foreach (var itemGoods in goods.ItemsGoods)
+			{
+				await _context.Entry(itemGoods).Reference(IG => IG.Item).LoadAsync();
+			}
+			viewModel.ItemGoodsList.AddRange(goods.ItemsGoods.OrderByDescending(IG => IG.Item.Category).ThenBy(IG => IG.Probability));
+
+			return View(viewModel);
 		}
 
 		// POST: GoodsManagement/EditGoods/5
@@ -390,6 +398,159 @@ namespace Godius.Shop.Controllers
 		private bool GoodsExists(Guid id)
 		{
 			return _context.Goods.Any(e => e.Id == id);
+		}
+
+		#endregion
+
+		#region ItemGoods
+
+		// GET: GoodsManagement/CreateItemGoods
+		public async Task<IActionResult> CreateItemGoods(Guid id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var goods = await _context.Goods
+				.SingleOrDefaultAsync(m => m.Id == id);
+			if (goods == null)
+			{
+				return NotFound();
+			}
+			
+			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name");
+			return View(new ItemGoods { GoodsId = goods.Id });
+		}
+
+		// POST: GoodsManagement/CreateItemGoods
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> CreateItemGoods([Bind("Id,Probability,Description,GoodsId,ItemId")] ItemGoods itemGoods)
+		{
+			if (ModelState.IsValid)
+			{
+				itemGoods.Id = Guid.NewGuid();
+				_context.Add(itemGoods);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(EditGoods), new { id = itemGoods.GoodsId });
+			}
+			
+			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name", itemGoods.ItemId);
+			return View(itemGoods);
+		}
+
+		// GET: GoodsManagement/DetailsItemGoods/5
+		public async Task<IActionResult> DetailsItemGoods(Guid? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var itemGoods = await _context.ItemGoods
+				.Include(i => i.Goods)
+				.Include(i => i.Item)
+				.SingleOrDefaultAsync(m => m.Id == id);
+			if (itemGoods == null)
+			{
+				return NotFound();
+			}
+
+			return View(itemGoods);
+		}
+
+		// GET: GoodsManagement/EditItemGoods/5
+		public async Task<IActionResult> EditItemGoods(Guid? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var itemGoods = await _context.ItemGoods.Include(IG => IG.Item).SingleOrDefaultAsync(m => m.Id == id);
+			if (itemGoods == null)
+			{
+				return NotFound();
+			}
+
+			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name", itemGoods.ItemId);
+			return View(itemGoods);
+		}
+
+		// POST: GoodsManagement/EditItemGoods/5
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> EditItemGoods(Guid id, [Bind("Id,Probability,Description,GoodsId,ItemId")] ItemGoods itemGoods)
+		{
+			if (id != itemGoods.Id)
+			{
+				return NotFound();
+			}
+
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					_context.Update(itemGoods);
+					await _context.SaveChangesAsync();
+				}
+				catch (DbUpdateConcurrencyException)
+				{
+					if (!ItemGoodsExists(itemGoods.Id))
+					{
+						return NotFound();
+					}
+					else
+					{
+						throw;
+					}
+				}
+				return RedirectToAction(nameof(EditGoods), new { id = itemGoods.GoodsId });
+			}
+
+			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name", itemGoods.ItemId);
+			return View(itemGoods);
+		}
+
+		// GET: GoodsManagement/DeleteItemGoods/5
+		public async Task<IActionResult> DeleteItemGoods(Guid? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var itemGoods = await _context.ItemGoods
+				.Include(i => i.Goods)
+				.Include(i => i.Item)
+				.SingleOrDefaultAsync(m => m.Id == id);
+			if (itemGoods == null)
+			{
+				return NotFound();
+			}
+
+			return View(itemGoods);
+		}
+
+		// POST: GoodsManagement/DeleteItemGoods/5
+		[HttpPost, ActionName("DeleteItemGoods")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(Guid id)
+		{
+			var itemGoods = await _context.ItemGoods.SingleOrDefaultAsync(m => m.Id == id);
+			_context.ItemGoods.Remove(itemGoods);
+			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(EditGoods), new { id = itemGoods.GoodsId });
+		}
+
+		private bool ItemGoodsExists(Guid id)
+		{
+			return _context.ItemGoods.Any(e => e.Id == id);
 		}
 
 		#endregion

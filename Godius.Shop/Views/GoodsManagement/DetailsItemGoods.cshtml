@@ -1,0 +1,42 @@
+﻿@model Godius.Shop.Models.ItemGoods
+
+@{
+    ViewData["Title"] = "아이템 상품 상세정보";
+}
+
+<h3>아이템 상품 상세정보</h3>
+
+<div>
+    <hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Probability)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Probability)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Goods)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Goods.Name)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Item)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Item.Name)
+		</dd>
+	</dl>
+</div>
+<div>
+	<a asp-action="EditItemGoods" asp-route-id="@Model.Id">수정</a> |
+	<a asp-action="DeleteItemGoods" asp-route-id="@Model.Id">삭제</a> |
+	<a asp-action="EditGoods" asp-route-id="@Model.GoodsId">뒤로</a>
+</div>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Godius.Shop.Models.ItemGoods>
+
+<table class="table">
+    <thead>
+        <tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Probability)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Description)
+			</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Probability)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.Name)
+            </td>
+            <td>
+                <a asp-action="EditItemGoods" asp-route-id="@item.Id">수정</a> |
+				<a asp-action="DetailsItemGoods" asp-route-id="@item.Id">상세정보</a> |
+                <a asp-action="DeleteItemGoods" asp-route-id="@item.Id">삭제</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

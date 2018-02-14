@@ -8,7 +8,7 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+	<div class="col-md-4">
 		<form asp-action="EditGoods" enctype="multipart/form-data">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<input type="hidden" asp-for="Id" />
@@ -40,9 +40,9 @@
 			<div class="form-group">
 				<label asp-for="Image" class="control-label"></label>
 				@if (!String.IsNullOrEmpty(Model.ImagePath))
-		{
-			<img src="@Model.ImagePath" class="img-thumbnail" />
-}
+				{
+					<img src="@Model.ImagePath" class="img-thumbnail" />
+				}
 				<input asp-for="Image" type="file" />
 				<span asp-validation-for="Image" class="text-danger"></span>
 			</div>
@@ -50,13 +50,21 @@
 				<input type="submit" value="수정" class="btn btn-default" />
 			</div>
 		</form>
-    </div>
+	</div>
+	<div class="col-md-8">
+		<h4>아이템 상품 추가/수정</h4>
+		<hr />
+		<p>
+			<a asp-action="CreateItemGoods" asp-route-id="@Model.Id">아이템 상품 등록</a>
+		</p>
+		@Html.Partial("_ItemGoodsListPartial", Model.ItemGoodsList)
+	</div>
 </div>
 
 <div>
-    <a asp-action="Index">뒤로</a>
+	<a asp-action="Index">뒤로</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -36,5 +36,7 @@ namespace Godius.Shop.Models.GoodsViewModels
 		
 		[Display(Name = "이미지")]
 		public string ImagePath { get; set; }
+
+		public List<ItemGoods> ItemGoodsList { get; set; } = new List<ItemGoods>();
 	}
 }

@@ -19,11 +19,12 @@ namespace Godius.Shop.Models
 
 		[Display(Name = "상품")]
 		public Goods Goods { get; set; }
-
+		[Display(Name = "상품")]
 		public Guid GoodsId { get; set; }
 
+		[Display(Name = "아이템")]
 		public Item Item { get; set; }
-
+		[Display(Name = "아이템")]
 		public Guid ItemId { get; set; }
 
 		public virtual List<ResultItemGoods> ResultItemGoods { get; set; }
