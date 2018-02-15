@@ -1,7 +1,7 @@
 ﻿@model Godius.Shop.Models.Goods
 
 @{
-    ViewData["Title"] = "Buy";
+    ViewData["Title"] = $"{Model.Name} 구매";
 }
 
 <h3>@Html.Raw($"{Model.Name} 구매")</h3>
@@ -16,7 +16,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td width="10%">
+				<td style="width:100px">
 					@if (!String.IsNullOrEmpty(Model.Image))
 					{
 						<img src="@Model.Image" alt="@Model.Image" class="img-thumbnail" />
@@ -28,23 +28,46 @@
 			</tr>
 		</tbody>
 	</table>
+	<div style="outline-style: dashed;outline-color: #dddddd;padding: 5px;margin: 2px">
+		아래 아이템 목록 중에서 1개를 획득할 수 있습니다. <br />
+		각 아이템 별로 획득 확률이 다르니 확인하시기 바랍니다. <br />
+		구매는 1 회당 1 개만 가능합니다. <br />
+		구매 버튼을 클릭하면 당첨된 아이템을 확인할 수 있습니다. <br />
+	</div>
 	<hr />
+	<div>
+		<b>가격 : </b>@Html.DisplayFor(model => model.Price)
+	</div>
+	<div>
+		<br />
+	</div>
+	<div>
+		<form asp-action="Buy">
+			<input type="hidden" asp-for="Id" />
+			<input type="submit" value="구매" class="btn btn-primary" />
+			<a asp-action="Index" class="btn btn-default">취소</a>
+		</form>
+	</div>
+
+	<br />
+	<br />
 	<h4>아이템 목록</h4>
+	<hr />
 	@foreach (var itemGoods in Model.ItemsGoods.OrderByDescending(IG => IG.Item.Category).ThenBy(IG => IG.Probability))
 	{
 		<table class="table table-bordered">
 			<thead>
 				<tr class="goods-header">
 					<th colspan="2">@itemGoods.Item.Name</th>
-					<th width="6.5%">@itemGoods.Probability %</th>
+					<th style="text-align: center; width:80px">@itemGoods.Probability %</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td rowspan="2" width="7%">
+					<td rowspan="2" style="width:70px">
 						@if (!String.IsNullOrEmpty(itemGoods.Item.Image))
 						{
-						<img src="@itemGoods.Item.Image" alt="@itemGoods.Item.Image" class="img-thumbnail" />
+							<img src="@itemGoods.Item.Image" alt="@itemGoods.Item.Image" class="img-thumbnail" />
 						}
 					</td>
 					<td colspan="2">

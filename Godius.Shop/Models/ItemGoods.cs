@@ -17,6 +17,9 @@ namespace Godius.Shop.Models
 		[Display(Name = "설명")]
 		public string Description { get; set; }
 
+		[Display(Name = "추가 업그레이드 여부")]
+		public bool NeedAdditionalUpgrade { get; set; }
+
 		[Display(Name = "상품")]
 		public Goods Goods { get; set; }
 		[Display(Name = "상품")]

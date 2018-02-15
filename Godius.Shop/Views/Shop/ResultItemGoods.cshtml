@@ -1,0 +1,51 @@
+﻿@model Godius.Shop.Models.ResultItemGoods
+
+@{
+    ViewData["Title"] = "당첨 아이템 확인";
+}
+
+<h3>당첨 아이템 확인</h3>
+
+<div>
+	<hr />
+	<table class="table table-bordered">
+		<thead>
+			<tr class="goods-header">
+				<th colspan="2">@Model.ItemGoods.Item.Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td rowspan="2" style="width:70px">
+					@if (!String.IsNullOrEmpty(Model.ItemGoods.Item.Image))
+					{
+						<img src="@Model.ItemGoods.Item.Image" alt="@Model.ItemGoods.Item.Image" class="img-thumbnail" />
+					}
+				</td>
+				<td colspan="2">
+					<span>WC @Model.ItemGoods.Item.WC</span>
+					@if (Model.UpgradeOption > 0)
+					{
+					<span><b> + @Model.UpgradeOption</b></span>
+					}
+					<span> / </span>
+					<span>무게 @Model.ItemGoods.Item.Weight</span>
+					<span> / </span>
+					<span>내구력 @Model.ItemGoods.Item.Durability</span>
+					@if (Model.UpgradeDurability > 0)
+					{
+					<span><b> + @(Model.ItemGoods.Item.Durability * Model.UpgradeDurability)</b></span>
+					}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					@Html.Raw(Model.ItemGoods.Item.Description.Replace(Environment.NewLine, "<br />"))
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div>
+	<a asp-action="Index" class="btn btn-primary">확인</a>
+</div>

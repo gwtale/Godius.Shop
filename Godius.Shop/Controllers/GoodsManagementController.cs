@@ -428,7 +428,7 @@ namespace Godius.Shop.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> CreateItemGoods([Bind("Id,Probability,Description,GoodsId,ItemId")] ItemGoods itemGoods)
+		public async Task<IActionResult> CreateItemGoods([Bind("Id,Probability,Description,NeedAdditionalUpgrade,GoodsId,ItemId")] ItemGoods itemGoods)
 		{
 			if (ModelState.IsValid)
 			{
@@ -485,7 +485,7 @@ namespace Godius.Shop.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> EditItemGoods(Guid id, [Bind("Id,Probability,Description,GoodsId,ItemId")] ItemGoods itemGoods)
+		public async Task<IActionResult> EditItemGoods(Guid id, [Bind("Id,Probability,Description,NeedAdditionalUpgrade,GoodsId,ItemId")] ItemGoods itemGoods)
 		{
 			if (id != itemGoods.Id)
 			{
