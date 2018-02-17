@@ -22,18 +22,22 @@ namespace Godius.Shop.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+		private readonly RoleManager<IdentityRole> _roleManager;
+
+		private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender,
+			RoleManager<IdentityRole> roleManager,
+			IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
+			_roleManager = roleManager;
+			_emailSender = emailSender;
             _logger = logger;
         }
 
@@ -437,9 +441,27 @@ namespace Godius.Shop.Controllers
             return View();
         }
 
-        #region Helpers
+		//https://localhost:44327/account/addrole?role=admin
+		[HttpGet]
+		public async Task<IActionResult> AddRole(string role)
+		{
+			if (!await _roleManager.RoleExistsAsync(role))
+			{
+				await _roleManager.CreateAsync(new IdentityRole(role));
+			}
+			
+			var user = await _userManager.GetUserAsync(User);
+			if (!User.IsInRole(role))
+			{
+				await _userManager.AddToRoleAsync(user, role);
+			}
 
-        private void AddErrors(IdentityResult result)
+			return Json(await _userManager.GetRolesAsync(user));
+		}
+
+		#region Helpers
+
+		private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {

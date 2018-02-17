@@ -31,8 +31,11 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li><a asp-area="" asp-controller="Shop" asp-action="Index">상품 목록</a></li>
+					@if (User.IsInRole("Admin"))
+					{
 					<li><a asp-area="" asp-controller="ItemsManagement" asp-action="Index">아이템 관리</a></li>					
 					<li><a asp-area="" asp-controller="GoodsManagement" asp-action="Index">상품 관리</a></li>
+					}
 				</ul>
 				@await Html.PartialAsync("_LoginPartial")
 			</div>

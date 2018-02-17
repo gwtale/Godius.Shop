@@ -11,10 +11,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using System.IO;
 using Godius.Shop.Models.GoodsViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Godius.Shop.Controllers
 {
-    public class GoodsManagementController : Controller
+	[Authorize(Roles = "Admin")]
+	public class GoodsManagementController : Controller
     {
         private readonly ApplicationDbContext _context;
 		private readonly IHostingEnvironment _hostingEnvironment;
