@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Godius.Shop.Models;
 using Godius.Shop.Models.ManageViewModels;
 using Godius.Shop.Services;
+using Godius.Shop.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Godius.Shop.Controllers
 {
@@ -20,7 +22,8 @@ namespace Godius.Shop.Controllers
     [Route("[controller]/[action]")]
     public class ManageController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+		private readonly ApplicationDbContext _context;
+		private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
@@ -30,13 +33,15 @@ namespace Godius.Shop.Controllers
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
 
         public ManageController(
-          UserManager<ApplicationUser> userManager,
+		  ApplicationDbContext context,
+		  UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
-            _userManager = userManager;
+			_context = context;
+			_userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
@@ -173,7 +178,7 @@ namespace Godius.Shop.Controllers
 
             await _signInManager.SignInAsync(user, isPersistent: false);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            StatusMessage = "비밀번호가 변경되었습니다.";
 
             return RedirectToAction(nameof(ChangePassword));
         }
@@ -221,7 +226,7 @@ namespace Godius.Shop.Controllers
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);
-            StatusMessage = "Your password has been set.";
+            StatusMessage = "비밀번호가 설정되었습니다.";
 
             return RedirectToAction(nameof(SetPassword));
         }
@@ -491,9 +496,16 @@ namespace Godius.Shop.Controllers
             return View(nameof(ShowRecoveryCodes), model);
         }
 
-        #region Helpers
+		public async Task<IActionResult> PurchaseHistory()
+		{
+			var userId = Guid.Parse(_userManager.GetUserId(User));
+			var goods = await _context.PurchaseHistory.Where(P => P.PurchaserId == userId).OrderByDescending(P => P.Date).ToListAsync();
+			return View(goods);
+		}
 
-        private void AddErrors(IdentityResult result)
+		#region Helpers
+
+		private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {

@@ -41,3 +41,10 @@
 .goods-sub-header {
 	background-color: #f5f0f0;
 }
+
+.note-box {
+	outline-style: dashed;
+	outline-color: #dddddd;
+	padding: 5px;
+	margin: 2px
+}

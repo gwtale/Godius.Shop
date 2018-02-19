@@ -14,7 +14,8 @@ namespace Godius.Shop.Models.ManageViewModels
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+		[Display(Name = "이메일")]
+		public string Email { get; set; }
 
         [Phone]
         [Display(Name = "Phone number")]

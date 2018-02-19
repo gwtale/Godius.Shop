@@ -1,4 +1,28 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Godius.Shop.Models.Goods>
+@{
+	ViewData["Title"] = "Home";
 }
 
+<hr />
+<div class="row">
+	<div class="col-md-5">
+		<div class="note-box">
+			본 사이트는 단순히 시뮬레이션을 위한 비공식 사이트 입니다.<br />
+			추후에 열릴 정식 몰 사이트와 아이템 및 확률이 다를 수 있으며, 현재 공식 카페에 공개된 정보만을 참고하여 제작하였습니다.<br />
+			<br />
+			<span style="color:red">
+				이메일이나 패스워드등 본인의 습관으로 인하여 개인정보노출 및 해킹, 악용의 소지가 있습니다. 주의하시기 바랍니다.<br />
+			</span>
+			<br />
+			또한 본 사이트의 이미지 및 아이템 정보의 저작권은 (주)플레인월드에 있습니다.<br />
+		</div>
+	</div>
+</div>
+
+<h3>상품 목록</h3>
+<div class="card-deck">
+	@foreach (var item in Model)
+	{
+		@Html.Partial("_GoodsTemplate", item)
+	}
+</div>

@@ -86,7 +86,7 @@ namespace Godius.Shop
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Shop}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 		}
 	}

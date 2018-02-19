@@ -13,6 +13,7 @@ namespace Godius.Shop.Models
 		public Guid ResultItemId { get; set; }
 
 		public ApplicationUser Purchaser { get; set; }
+		public Guid PurchaserId { get; set; }
 
 		public DateTime? Date { get; set; }
     }
