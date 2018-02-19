@@ -421,7 +421,7 @@ namespace Godius.Shop.Controllers
 				return NotFound();
 			}
 			
-			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name");
+			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name").OrderBy(SLI => SLI.Text);
 			return View(new ItemGoods { GoodsId = goods.Id });
 		}
 
@@ -440,7 +440,7 @@ namespace Godius.Shop.Controllers
 				return RedirectToAction(nameof(EditGoods), new { id = itemGoods.GoodsId });
 			}
 			
-			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name", itemGoods.ItemId);
+			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name", itemGoods.ItemId).OrderBy(SLI => SLI.Text);
 			return View(itemGoods);
 		}
 
@@ -478,7 +478,7 @@ namespace Godius.Shop.Controllers
 				return NotFound();
 			}
 
-			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name", itemGoods.ItemId);
+			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name", itemGoods.ItemId).OrderBy(SLI => SLI.Text);
 			return View(itemGoods);
 		}
 
@@ -515,7 +515,7 @@ namespace Godius.Shop.Controllers
 				return RedirectToAction(nameof(EditGoods), new { id = itemGoods.GoodsId });
 			}
 
-			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name", itemGoods.ItemId);
+			ViewData["ItemsName"] = new SelectList(_context.Items, "Id", "Name", itemGoods.ItemId).OrderBy(SLI => SLI.Text);
 			return View(itemGoods);
 		}
 

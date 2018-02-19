@@ -54,7 +54,7 @@
 	<br />
 	<h4>아이템 목록</h4>
 	<hr />
-	@foreach (var itemGoods in Model.ItemsGoods.OrderByDescending(IG => IG.Item.Category).ThenBy(IG => IG.Probability))
+	@foreach (var itemGoods in Model.ItemsGoods.OrderByDescending(IG => IG.Item.Category).ThenBy(IG => IG.Probability).ThenByDescending(IG => IG.Item.Generation))
 	{
 		<table class="table table-bordered">
 			<thead>
