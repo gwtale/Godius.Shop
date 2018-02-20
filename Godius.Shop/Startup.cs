@@ -14,6 +14,7 @@ using Godius.Shop.Services;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using ReflectionIT.Mvc.Paging;
 
 namespace Godius.Shop
 {
@@ -60,7 +61,9 @@ namespace Godius.Shop
 			services.Configure<AppOptions>(Configuration);
 
 			services.AddMvc();
-        }
+
+			services.AddPaging();
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

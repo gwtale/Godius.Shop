@@ -15,6 +15,7 @@ using Godius.Shop.Models.ManageViewModels;
 using Godius.Shop.Services;
 using Godius.Shop.Data;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 
 namespace Godius.Shop.Controllers
 {
@@ -28,8 +29,9 @@ namespace Godius.Shop.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
+		private readonly AppOptions _appOptionsAccessor;
 
-        private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
+		private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
 
         public ManageController(
@@ -38,7 +40,8 @@ namespace Godius.Shop.Controllers
           SignInManager<ApplicationUser> signInManager,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder)
+          UrlEncoder urlEncoder,
+		  IOptions<AppOptions> appOptionsAccessor)
         {
 			_context = context;
 			_userManager = userManager;
@@ -46,7 +49,8 @@ namespace Godius.Shop.Controllers
             _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
-        }
+			_appOptionsAccessor = appOptionsAccessor.Value;
+		}
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -496,17 +500,20 @@ namespace Godius.Shop.Controllers
             return View(nameof(ShowRecoveryCodes), model);
         }
 
-		public async Task<IActionResult> PurchaseHistory()
+		public async Task<IActionResult> PurchaseHistory(int? page)
 		{
 			var userId = _userManager.GetUserId(User);
-			var goods = await _context.PurchaseHistory.Where(P => P.PurchaserId == userId)
-													  .OrderByDescending(P => P.Date)
+			var goodsQuery = _context.PurchaseHistory.AsNoTracking()
+													  .Where(P => P.PurchaserId == userId)
+													  .Include(P => P.Goods)
 													  .Include(P => P.ResultItemGoods)
 													  .ThenInclude(RIG => RIG.ItemGoods)
-													  .ThenInclude(IG => IG.Item)													  
-													  .ToListAsync();
-			return View(goods);
+													  .ThenInclude(IG => IG.Item)
+													  .OrderByDescending(P => P.Date);
+			var model = await PagingList.CreateAsync(goodsQuery, _appOptionsAccessor.PurchaseHistoryPageSize, page.GetValueOrDefault(1));
+			return View(model);
 		}
+
 
 		#region Helpers
 

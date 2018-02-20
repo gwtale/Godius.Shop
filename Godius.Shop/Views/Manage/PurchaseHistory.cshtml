@@ -1,7 +1,8 @@
-﻿@model IEnumerable<Godius.Shop.Models.Purchase>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Godius.Shop.Models.Purchase>
 @{
 	ViewData["Title"] = "구매내역 확인";
 	ViewData.AddActivePage(ManageNavPages.PurchaseHistory);
+	Model.Action = ManageNavPages.PurchaseHistory;
 }
 
 <h4>@ViewData["Title"]</h4>
@@ -10,7 +11,7 @@
 	<thead>
 		<tr>
 			<th>
-				@Html.DisplayNameFor(model => model.Id)
+				@Html.DisplayNameFor(model => model.Goods)
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.ResultItemGoods)
@@ -26,20 +27,20 @@
 		{
 			<tr>
 				<td>
-					@Html.DisplayFor(modelItem => item.Id)
+					@Html.DisplayFor(modelItem => item.Goods.Name)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.ResultItemGoods)
+					@Html.DisplayFor(modelItem => item.ResultItemGoods.ItemGoods.Item.Name)
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.Date)
-				</td>
-				<td>
-					@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-					@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-					@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
 				</td>
 			</tr>
 		}
 	</tbody>
 </table>
+
+<nav aria-label="Suppliers navigation example">
+	<vc:pager paging-list="@Model" />
+</nav>
+
