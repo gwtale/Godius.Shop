@@ -30,12 +30,72 @@
     <Compile Remove="Data\Migrations\20180212075025_AddGoods.Designer.cs" />
     <Compile Remove="Data\Migrations\20180212075237_AddGoods.cs" />
     <Compile Remove="Data\Migrations\20180212075237_AddGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180212075324_AddGoodsDb.cs" />
+    <Compile Remove="Data\Migrations\20180212075324_AddGoodsDb.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180213050805_AddCategoryId.cs" />
+    <Compile Remove="Data\Migrations\20180213050805_AddCategoryId.Designer.cs" />
     <Compile Remove="Data\Migrations\20180214015522_AddItemGoods.cs" />
     <Compile Remove="Data\Migrations\20180214015522_AddItemGoods.Designer.cs" />
     <Compile Remove="Data\Migrations\20180214015852_AddItemGoodsAndPurchases.cs" />
     <Compile Remove="Data\Migrations\20180214015852_AddItemGoodsAndPurchases.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180214020032_AddItemGoodsAndPurchases.cs" />
+    <Compile Remove="Data\Migrations\20180214020032_AddItemGoodsAndPurchases.Designer.cs" />
     <Compile Remove="Data\Migrations\20180214022546_AddItemDescription.cs" />
     <Compile Remove="Data\Migrations\20180214022546_AddItemDescription.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180214022627_AddItemDescription.cs" />
+    <Compile Remove="Data\Migrations\20180214022627_AddItemDescription.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180214023053_AddItemGeneration.cs" />
+    <Compile Remove="Data\Migrations\20180214023053_AddItemGeneration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180214040844_UpdateItemProperty.cs" />
+    <Compile Remove="Data\Migrations\20180214040844_UpdateItemProperty.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180214050324_UpdateTypeOfGeneration.cs" />
+    <Compile Remove="Data\Migrations\20180214050324_UpdateTypeOfGeneration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180215102428_addNeedAdditionalUpgradeOfItemGoods.cs" />
+    <Compile Remove="Data\Migrations\20180215102428_addNeedAdditionalUpgradeOfItemGoods.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180219141037_AddPurchaserIdToPurchaseHistory.cs" />
+    <Compile Remove="Data\Migrations\20180219141037_AddPurchaserIdToPurchaseHistory.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180219151554_UpdatePurchase.cs" />
+    <Compile Remove="Data\Migrations\20180219151554_UpdatePurchase.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220044516_UpdatePurchaseModel.cs" />
+    <Compile Remove="Data\Migrations\20180220044516_UpdatePurchaseModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220045544_UpdatePurchaseModel2.cs" />
+    <Compile Remove="Data\Migrations\20180220045544_UpdatePurchaseModel2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220064743_UpdatePurchaseModel3.cs" />
+    <Compile Remove="Data\Migrations\20180220064743_UpdatePurchaseModel3.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220064950_UpdatePurchaseModel3.cs" />
+    <Compile Remove="Data\Migrations\20180220064950_UpdatePurchaseModel3.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220065514_UpdatePurchaseModel4.cs" />
+    <Compile Remove="Data\Migrations\20180220065514_UpdatePurchaseModel4.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220065737_UpdatePurchaseModel5.cs" />
+    <Compile Remove="Data\Migrations\20180220065737_UpdatePurchaseModel5.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220091056_UpdatePurchaseModel.cs" />
+    <Compile Remove="Data\Migrations\20180220091056_UpdatePurchaseModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220091321_UpdatePurchaseModel.cs" />
+    <Compile Remove="Data\Migrations\20180220091321_UpdatePurchaseModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220091812_updatedatabasescheme.cs" />
+    <Compile Remove="Data\Migrations\20180220091812_updatedatabasescheme.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220091924_updatedatabasescheme.cs" />
+    <Compile Remove="Data\Migrations\20180220091924_updatedatabasescheme.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220092126_updatedatabasescheme.cs" />
+    <Compile Remove="Data\Migrations\20180220092126_updatedatabasescheme.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220092213_updatedatabasescheme.cs" />
+    <Compile Remove="Data\Migrations\20180220092213_updatedatabasescheme.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220125113_updatedatabasescheme.cs" />
+    <Compile Remove="Data\Migrations\20180220125113_updatedatabasescheme.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220125942_UpdateDatabaseScheme.cs" />
+    <Compile Remove="Data\Migrations\20180220125942_UpdateDatabaseScheme.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220130328_UpdateDatabaseScheme.cs" />
+    <Compile Remove="Data\Migrations\20180220130328_UpdateDatabaseScheme.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220135930_UpdateDatabaseModels.cs" />
+    <Compile Remove="Data\Migrations\20180220135930_UpdateDatabaseModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220140314_UpdateDatabaseModels.cs" />
+    <Compile Remove="Data\Migrations\20180220140314_UpdateDatabaseModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220141542_UpdateDatabaseModels.cs" />
+    <Compile Remove="Data\Migrations\20180220141542_UpdateDatabaseModels.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\CustomProfile.pubxml" />
   </ItemGroup>
 
 

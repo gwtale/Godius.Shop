@@ -498,8 +498,13 @@ namespace Godius.Shop.Controllers
 
 		public async Task<IActionResult> PurchaseHistory()
 		{
-			var userId = Guid.Parse(_userManager.GetUserId(User));
-			var goods = await _context.PurchaseHistory.Where(P => P.PurchaserId == userId).OrderByDescending(P => P.Date).ToListAsync();
+			var userId = _userManager.GetUserId(User);
+			var goods = await _context.PurchaseHistory.Where(P => P.PurchaserId == userId)
+													  .OrderByDescending(P => P.Date)
+													  .Include(P => P.ResultItemGoods)
+													  .ThenInclude(RIG => RIG.ItemGoods)
+													  .ThenInclude(IG => IG.Item)													  
+													  .ToListAsync();
 			return View(goods);
 		}
 

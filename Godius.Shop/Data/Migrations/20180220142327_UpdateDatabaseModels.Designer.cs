@@ -12,8 +12,8 @@ using System;
 namespace Godius.Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180212075324_AddGoodsDb")]
-    partial class AddGoodsDb
+    [Migration("20180220142327_UpdateDatabaseModels")]
+    partial class UpdateDatabaseModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,7 +78,7 @@ namespace Godius.Shop.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("CategoryId");
+                    b.Property<Guid>("CategoryId");
 
                     b.Property<string>("Description");
 
@@ -116,25 +116,55 @@ namespace Godius.Shop.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ByPurchaseId");
+                    b.Property<int?>("AC");
 
                     b.Property<int>("Category");
 
-                    b.Property<int>("DefaultDurability");
+                    b.Property<int?>("DC");
 
-                    b.Property<int>("DefaultOption");
+                    b.Property<string>("Description");
+
+                    b.Property<int?>("Durability");
+
+                    b.Property<double>("Generation");
+
+                    b.Property<int?>("HC");
+
+                    b.Property<string>("Image");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("UpgradeDurability");
+                    b.Property<int?>("WC");
 
-                    b.Property<int>("UpgradeOption");
+                    b.Property<int?>("Weight");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ByPurchaseId");
-
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("Godius.Shop.Models.ItemGoods", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<Guid>("GoodsId");
+
+                    b.Property<Guid>("ItemId");
+
+                    b.Property<bool>("NeedAdditionalUpgrade");
+
+                    b.Property<double>("Probability");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GoodsId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("ItemGoods");
                 });
 
             modelBuilder.Entity("Godius.Shop.Models.Purchase", b =>
@@ -144,17 +174,40 @@ namespace Godius.Shop.Data.Migrations
 
                     b.Property<DateTime?>("Date");
 
-                    b.Property<Guid?>("ItemId");
+                    b.Property<Guid>("GoodsId");
 
                     b.Property<string>("PurchaserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("GoodsId");
 
                     b.HasIndex("PurchaserId");
 
                     b.ToTable("PurchaseHistory");
+                });
+
+            modelBuilder.Entity("Godius.Shop.Models.ResultItemGoods", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("ItemGoodsId");
+
+                    b.Property<Guid>("PurchaseId");
+
+                    b.Property<int>("UpgradeDurability");
+
+                    b.Property<int>("UpgradeOption");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemGoodsId");
+
+                    b.HasIndex("PurchaseId")
+                        .IsUnique();
+
+                    b.ToTable("ResultItemGoods");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -269,25 +322,45 @@ namespace Godius.Shop.Data.Migrations
                 {
                     b.HasOne("Godius.Shop.Models.GoodsCategory", "Category")
                         .WithMany("Goods")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Godius.Shop.Models.Item", b =>
+            modelBuilder.Entity("Godius.Shop.Models.ItemGoods", b =>
                 {
-                    b.HasOne("Godius.Shop.Models.Purchase", "ByPurchase")
-                        .WithMany()
-                        .HasForeignKey("ByPurchaseId");
+                    b.HasOne("Godius.Shop.Models.Goods", "Goods")
+                        .WithMany("ItemsGoods")
+                        .HasForeignKey("GoodsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Godius.Shop.Models.Item", "Item")
+                        .WithMany("ItemGoods")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Godius.Shop.Models.Purchase", b =>
                 {
-                    b.HasOne("Godius.Shop.Models.Goods", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId");
+                    b.HasOne("Godius.Shop.Models.Goods", "Goods")
+                        .WithMany("PurchaseHistory")
+                        .HasForeignKey("GoodsId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Godius.Shop.Models.ApplicationUser", "Purchaser")
                         .WithMany()
                         .HasForeignKey("PurchaserId");
+                });
+
+            modelBuilder.Entity("Godius.Shop.Models.ResultItemGoods", b =>
+                {
+                    b.HasOne("Godius.Shop.Models.ItemGoods", "ItemGoods")
+                        .WithMany("ResultItemGoods")
+                        .HasForeignKey("ItemGoodsId");
+
+                    b.HasOne("Godius.Shop.Models.Purchase", "Purchase")
+                        .WithOne("ResultItemGoods")
+                        .HasForeignKey("Godius.Shop.Models.ResultItemGoods", "PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

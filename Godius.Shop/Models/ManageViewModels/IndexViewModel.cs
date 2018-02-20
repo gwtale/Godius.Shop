@@ -12,8 +12,8 @@ namespace Godius.Shop.Models.ManageViewModels
 
         public bool IsEmailConfirmed { get; set; }
 
-        [Required]
-        [EmailAddress]
+		[Required(ErrorMessage = "이메일 주소를 입력하세요.")]
+		[EmailAddress(ErrorMessage = "올바른 이메일 주소 형식이 아닙니다.")]
 		[Display(Name = "이메일")]
 		public string Email { get; set; }
 

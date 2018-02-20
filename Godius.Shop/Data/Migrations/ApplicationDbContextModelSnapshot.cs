@@ -173,19 +173,15 @@ namespace Godius.Shop.Data.Migrations
 
                     b.Property<DateTime?>("Date");
 
-                    b.Property<Guid?>("GoodsId");
+                    b.Property<Guid>("GoodsId");
 
-                    b.Property<Guid>("PurchaserId");
-
-                    b.Property<string>("PurchaserId1");
-
-                    b.Property<Guid>("ResultItemId");
+                    b.Property<string>("PurchaserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GoodsId");
 
-                    b.HasIndex("PurchaserId1");
+                    b.HasIndex("PurchaserId");
 
                     b.ToTable("PurchaseHistory");
                 });
@@ -195,7 +191,7 @@ namespace Godius.Shop.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("ItemGoodsId");
+                    b.Property<Guid?>("ItemGoodsId");
 
                     b.Property<Guid>("PurchaseId");
 
@@ -337,28 +333,28 @@ namespace Godius.Shop.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Godius.Shop.Models.Item", "Item")
-                        .WithMany()
+                        .WithMany("ItemGoods")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Godius.Shop.Models.Purchase", b =>
                 {
-                    b.HasOne("Godius.Shop.Models.Goods")
-                        .WithMany("Purchases")
-                        .HasForeignKey("GoodsId");
+                    b.HasOne("Godius.Shop.Models.Goods", "Goods")
+                        .WithMany("PurchaseHistory")
+                        .HasForeignKey("GoodsId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Godius.Shop.Models.ApplicationUser", "Purchaser")
                         .WithMany()
-                        .HasForeignKey("PurchaserId1");
+                        .HasForeignKey("PurchaserId");
                 });
 
             modelBuilder.Entity("Godius.Shop.Models.ResultItemGoods", b =>
                 {
                     b.HasOne("Godius.Shop.Models.ItemGoods", "ItemGoods")
                         .WithMany("ResultItemGoods")
-                        .HasForeignKey("ItemGoodsId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ItemGoodsId");
 
                     b.HasOne("Godius.Shop.Models.Purchase", "Purchase")
                         .WithOne("ResultItemGoods")

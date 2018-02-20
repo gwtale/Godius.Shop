@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace Godius.Shop.Models
 {
     public class ItemGoods
     {
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public Guid Id { get; set; }
 		
 		[Display(Name = "획득확률")]
@@ -20,11 +22,13 @@ namespace Godius.Shop.Models
 		[Display(Name = "추가 업그레이드 여부")]
 		public bool NeedAdditionalUpgrade { get; set; }
 
+		[ForeignKey("GoodsId")]
 		[Display(Name = "상품")]
 		public Goods Goods { get; set; }
 		[Display(Name = "상품")]
 		public Guid GoodsId { get; set; }
 
+		[ForeignKey("ItemId")]
 		[Display(Name = "아이템")]
 		public Item Item { get; set; }
 		[Display(Name = "아이템")]

@@ -8,9 +8,9 @@ namespace Godius.Shop.Models.AccountViewModels
 {
     public class ResetPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+		[Required(ErrorMessage = "이메일 주소를 입력하세요.")]
+		[EmailAddress(ErrorMessage = "올바른 이메일 주소 형식이 아닙니다.")]
+		public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]

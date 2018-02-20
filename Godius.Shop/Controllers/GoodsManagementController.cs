@@ -262,7 +262,9 @@ namespace Godius.Shop.Controllers
 				return NotFound();
 			}
 
-			var goods = await _context.Goods.Include(G => G.ItemsGoods).SingleOrDefaultAsync(m => m.Id == id);
+			var goods = await _context.Goods.Include(G => G.ItemsGoods)
+											.ThenInclude(IG => IG.Item)
+											.SingleOrDefaultAsync(m => m.Id == id);
 			if (goods == null)
 			{
 				return NotFound();
@@ -290,10 +292,6 @@ namespace Godius.Shop.Controllers
 				ImagePath = goods.Image
 			};
 			
-			foreach (var itemGoods in goods.ItemsGoods)
-			{
-				await _context.Entry(itemGoods).Reference(IG => IG.Item).LoadAsync();
-			}
 			viewModel.ItemGoodsList.AddRange(goods.ItemsGoods.OrderByDescending(IG => IG.Item.Category).ThenBy(IG => IG.Probability));
 
 			return View(viewModel);

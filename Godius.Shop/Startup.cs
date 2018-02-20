@@ -36,8 +36,6 @@ namespace Godius.Shop
 
 			services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-			//services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
 			
 			// set Low security level password
 			services.AddIdentity<ApplicationUser, IdentityRole>(options =>

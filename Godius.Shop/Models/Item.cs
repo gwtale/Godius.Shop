@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace Godius.Shop.Models
 {
     public class Item
     {
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public Guid Id { get; set; }
 
 		[Display(Name = "카테고리")]
@@ -42,6 +44,8 @@ namespace Godius.Shop.Models
 
 		[Display(Name = "세대")]
 		public double Generation { get; set; } = 1;
+
+		public virtual List<ItemGoods> ItemGoods { get; set; }
 	}
 
 	public enum ItemCategories

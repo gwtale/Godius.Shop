@@ -46,15 +46,12 @@ namespace Godius.Shop.Controllers
 				return NotFound();
 			}
 
-			var goods = await _context.Goods.Include(G => G.ItemsGoods).SingleOrDefaultAsync(m => m.Id == id);
+			var goods = await _context.Goods.Include(G => G.ItemsGoods)
+											.ThenInclude(IG => IG.Item)
+											.SingleOrDefaultAsync(m => m.Id == id);
 			if (goods == null)
 			{
 				return NotFound();
-			}
-
-			foreach (var itemGoods in goods.ItemsGoods)
-			{
-				await _context.Entry(itemGoods).Reference(IG => IG.Item).LoadAsync();
 			}
 
 			return View(goods);
@@ -78,6 +75,16 @@ namespace Godius.Shop.Controllers
 					return NotFound();
 				}
 
+				// new Purchase
+				var applicationUser = await _userManager.GetUserAsync(User);
+				var purchase = new Purchase
+				{
+					Goods = goods,
+					Purchaser = applicationUser,
+					Date = DateTime.Now,
+				};
+				_context.Add(purchase);
+
 				// select ItemGoods
 				var source = new List<ItemGoods>();
 				foreach (var itemGoods in goods.ItemsGoods)
@@ -95,8 +102,8 @@ namespace Godius.Shop.Controllers
 				// create ResultItemGoods
 				var resultItemGoods = new ResultItemGoods
 				{
-					Id = Guid.NewGuid(),
-					ItemGoods = selectedItemGoods
+					ItemGoods = selectedItemGoods,
+					Purchase = purchase
 				};
 				// calculate Option
 				if (selectedItemGoods.NeedAdditionalUpgrade)
@@ -113,18 +120,9 @@ namespace Godius.Shop.Controllers
 						resultItemGoods.UpgradeDurability = upgradeOption;
 					}
 				}
-				_context.Add(resultItemGoods);
 
-				var applicationUser = await _userManager.GetUserAsync(User);
-				// new Purchase
-				var purchase = new Purchase
-				{
-					Id = Guid.NewGuid(),
-					ResultItemGoods = resultItemGoods,
-					Purchaser = applicationUser,
-					Date = DateTime.Now,
-				};
-				_context.Add(purchase);
+				_context.Add(resultItemGoods);
+				
 				await _context.SaveChangesAsync();
 
 				return View("ResultItemGoods", resultItemGoods);
