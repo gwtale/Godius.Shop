@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Godius.Shop.Models;
 using Godius.Shop.Models.AccountViewModels;
 using Godius.Shop.Services;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Godius.Shop.Controllers
 {
@@ -26,20 +27,25 @@ namespace Godius.Shop.Controllers
 
 		private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+		private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AccountController(
+
+		public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
 			RoleManager<IdentityRole> roleManager,
 			IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+			IHostingEnvironment hostingEnvironment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
 			_roleManager = roleManager;
 			_emailSender = emailSender;
             _logger = logger;
-        }
+			_hostingEnvironment = hostingEnvironment;
+
+		}
 
         [TempData]
         public string ErrorMessage { get; set; }
@@ -441,22 +447,29 @@ namespace Godius.Shop.Controllers
             return View();
         }
 
-		//https://localhost:44327/account/addrole?role=admin
+		//Account/addrole?role=admin
 		[HttpGet]
 		public async Task<IActionResult> AddRole(string role)
 		{
-			if (!await _roleManager.RoleExistsAsync(role))
+			if (_hostingEnvironment.IsDevelopment())
 			{
-				await _roleManager.CreateAsync(new IdentityRole(role));
-			}
-			
-			var user = await _userManager.GetUserAsync(User);
-			if (!User.IsInRole(role))
-			{
-				await _userManager.AddToRoleAsync(user, role);
-			}
+				if (!await _roleManager.RoleExistsAsync(role))
+				{
+					await _roleManager.CreateAsync(new IdentityRole(role));
+				}
 
-			return Json(await _userManager.GetRolesAsync(user));
+				var user = await _userManager.GetUserAsync(User);
+				if (!User.IsInRole(role))
+				{
+					await _userManager.AddToRoleAsync(user, role);
+				}
+
+				return Json(await _userManager.GetRolesAsync(user));
+			}
+			else
+			{
+				return NotFound();
+			}
 		}
 
 		#region Helpers
