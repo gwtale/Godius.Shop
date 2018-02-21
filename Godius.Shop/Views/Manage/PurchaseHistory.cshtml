@@ -13,7 +13,7 @@
 			<th>
 				@Html.DisplayNameFor(model => model.Goods)
 			</th>
-			<th>
+			<th colspan="2">
 				@Html.DisplayNameFor(model => model.ResultItemGoods)
 			</th>
 			<th>
@@ -27,10 +27,31 @@
 		{
 			<tr>
 				<td>
-					@Html.DisplayFor(modelItem => item.Goods.Name)
+					@if (!String.IsNullOrEmpty(item.Goods.Image))
+					{
+						<img src="@item.Goods.Image" alt="@item.Goods.Image" class="img-thumbnail" />
+					}
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.ResultItemGoods.ItemGoods.Item.Name)
+				@if (!String.IsNullOrEmpty(item.ResultItemGoods.ItemGoods.Item.Image))
+				{
+					<img src="@item.ResultItemGoods.ItemGoods.Item.Image" alt="@item.ResultItemGoods.ItemGoods.Item.Image" class="img-thumbnail" />
+				}
+				</td>
+				<td>
+					<span>WC @item.ResultItemGoods.ItemGoods.Item.WC</span>
+					@if (item.ResultItemGoods.UpgradeOption > 0)
+					{
+						<span><b> + @item.ResultItemGoods.UpgradeOption</b></span>
+					}
+					<br/>
+					<span>무게 @item.ResultItemGoods.ItemGoods.Item.Weight</span>
+					<br />
+					<span>내구력 @item.ResultItemGoods.ItemGoods.Item.Durability</span>
+					@if (item.ResultItemGoods.UpgradeDurability > 0)
+					{
+						<span><b> + @(item.ResultItemGoods.ItemGoods.Item.Durability * item.ResultItemGoods.UpgradeDurability)</b></span>
+					}
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.Date)

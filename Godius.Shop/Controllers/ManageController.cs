@@ -500,6 +500,8 @@ namespace Godius.Shop.Controllers
             return View(nameof(ShowRecoveryCodes), model);
         }
 
+		// GET: Manage/PurchaseHistory?page=1
+		[HttpGet]
 		public async Task<IActionResult> PurchaseHistory(int? page)
 		{
 			var userId = _userManager.GetUserId(User);
