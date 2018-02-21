@@ -22,6 +22,8 @@ namespace Godius.Shop.Data
 
 		public DbSet<Purchase> PurchaseHistory { get; set; }
 
+		public DbSet<Notice> Notices { get; set; }
+
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

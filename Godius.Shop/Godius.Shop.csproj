@@ -92,6 +92,8 @@
     <Compile Remove="Data\Migrations\20180220140314_UpdateDatabaseModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20180220141542_UpdateDatabaseModels.cs" />
     <Compile Remove="Data\Migrations\20180220141542_UpdateDatabaseModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180221003203_AddNotice.cs" />
+    <Compile Remove="Data\Migrations\20180221003203_AddNotice.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
