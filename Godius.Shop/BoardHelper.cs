@@ -30,5 +30,14 @@ namespace Godius.Shop
 				return "-";
 			}
 		}
+
+		public static string GetHidedUserEmail(string email)
+		{
+			var atCharIndex = email.IndexOf('@');
+			var lastDotIndex = email.LastIndexOf('.');
+			var removeCount = lastDotIndex - (atCharIndex + 2);
+
+			return email.Remove(atCharIndex + 2, removeCount).Insert(atCharIndex + 2, "".PadLeft(removeCount, '*'));
+		}
     }
 }

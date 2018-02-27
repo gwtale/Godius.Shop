@@ -1,0 +1,53 @@
+﻿@model Godius.Shop.Models.StatisticsViewModels.PerUserStatisticsViewModel
+@{
+	ViewData["Title"] = "유저 통계";
+	//var richUsers = Model.RichUsers as List<IDictionary<string, object>>;
+	//var luckyUsers = ViewData["LuckyUsers"] as List<IDictionary<string, object>>;
+}
+
+<h4>유저 통계</h4>
+<h5><b>최대 구매금액 유저</b></h5>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>순위</th>
+			<th>아이디</th>
+			<th>총 구매금액</th>
+		</tr>
+	</thead>
+	<tbody>
+	@for (int i = 1; i <= Model.RichUsers.Count; i++)
+	{
+		var richUser = Model.RichUsers[i - 1] as dynamic;
+		<tr>
+			<td>@Html.Raw(i)</td>
+			<td>@Html.Raw(richUser.UserEmail)</td>
+			<td>@Html.Raw(richUser.TotalPurchasePrice.ToString("C0"))</td>
+		</tr>
+	}
+	</tbody>
+</table>
+<hr />
+<h5><b>최고 행운 유저</b></h5>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>순위</th>
+			<th>아이디</th>
+			<th>누적 당첨 확률</th>
+			<th>구매 횟수</th>
+		</tr>
+	</thead>
+	<tbody>
+	@for (int i = 1; i <= Model.LuckyUsers.Count; i++)
+	{
+		var luckyUser = Model.LuckyUsers[i - 1] as dynamic;
+		<tr>
+			<td>@Html.Raw(i)</td>
+			<td>@Html.Raw(luckyUser.UserEmail)</td>
+			<td>@Html.Raw(luckyUser.Lucky.ToString("F2")) %</td>
+			<td>@Html.Raw(luckyUser.TotalPurchaseCount)</td>
+		</tr>
+	}
+	</tbody>
+</table>

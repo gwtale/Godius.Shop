@@ -1,0 +1,105 @@
+﻿@model IEnumerable<IGrouping<Goods, Purchase>>
+@{
+	ViewData["Title"] = "아이템 통계";
+}
+
+<h4>아이템 통계</h4>
+<p>
+	@foreach (var goodsGroup in Model)
+	{
+		var goodsItem = goodsGroup.Key;
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<table>
+					<tbody>
+						<tr>
+							<td rowspan="3" colspan="3" width="60px">
+								@if (!String.IsNullOrEmpty(goodsItem.Image))
+								{
+									<img src="@goodsItem.Image" alt="@goodsItem.Image" title="@goodsItem.Name" class="img-thumbnail" />
+								}
+							</td>
+						</tr>
+						<tr>
+							<td width="10px"></td>
+							<td>
+								<b>@goodsItem.Name</b>
+							</td>
+						</tr>
+						<tr>
+							<td width="10px"></td>
+							<td>
+								<small class="text-right">
+									(구매 개수 : @goodsItem.PurchaseHistory.Count 개, 매출 : @((goodsItem.PurchaseHistory.Count * goodsItem.Price).ToString("C0")))
+								</small>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>아이템</th>
+							<th>획득확률</th>
+							<th>실제 획득확률</th>
+							<th>획득 개수</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var itemsGoodsItem in goodsItem.ItemsGoods.OrderByDescending(IG => IG.Item.Category).ThenBy(IG => IG.Probability).ThenByDescending(IG => IG.Item.Generation))
+						{
+							var actualProbability = 0d;
+							if (goodsItem.PurchaseHistory.Count > 0)
+							{
+								actualProbability = ((double)itemsGoodsItem.ResultItemGoods.Count / (double)goodsItem.PurchaseHistory.Count) * 100;
+							}
+
+							var textColorClass = "";
+							var arrowIcon = "";
+							@if (actualProbability > itemsGoodsItem.Probability)
+							{
+								textColorClass = "text-danger";
+								arrowIcon = "<i class='glyphicon glyphicon-arrow-up'></i>";
+							}
+							else if (actualProbability < itemsGoodsItem.Probability)
+							{
+								textColorClass = "text-primary";
+								arrowIcon = "<i class='glyphicon glyphicon-arrow-down'></i>";
+							}
+							else
+							{
+								arrowIcon = "=";
+							}
+
+
+							<tr>
+								<td height="50px">
+									@if (!String.IsNullOrEmpty(itemsGoodsItem.Item.Image))
+									{
+										<img src="@itemsGoodsItem.Item.Image" alt="@itemsGoodsItem.Item.Image" title="@itemsGoodsItem.Item.Name" class="img-thumbnail" />
+										<br />
+									}
+								</td>
+								<td>
+									@itemsGoodsItem.Probability.ToString("F2") %
+								</td>
+								<td>
+									<span class="@textColorClass">
+										@actualProbability.ToString("F2") %
+										@Html.Raw(arrowIcon)
+									</span>
+								</td>
+								<td>
+									@itemsGoodsItem.ResultItemGoods.Count 개
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	}
+</p>
